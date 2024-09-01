@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "191121268682",
+    "project_id": "seven-taxis",
+    "storage_bucket": "seven-taxis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191121268682:android:a064f03f4df5e806c87933",
+        "android_client_info": {
+          "package_name": "com.seven.seven_taxis_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGxZ3PWQVUaP-SghDXyNljXbPcBh-vvmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
