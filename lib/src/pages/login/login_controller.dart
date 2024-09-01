@@ -18,6 +18,9 @@ class LoginController {
     emailController.dispose();
     passwordController.dispose();
   }
+  void goToRegisterPage(){
+    Navigator.pushNamed(context, 'register');
+  }
 
   void login() async {
     String email = emailController.text.trim();

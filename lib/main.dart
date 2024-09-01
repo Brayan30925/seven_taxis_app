@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seven_taxis_app/src/pages/home/home_page.dart';
 import 'package:seven_taxis_app/src/pages/login/login_page.dart';
+import 'package:seven_taxis_app/src/pages/register/register_page.dart';
 import 'package:seven_taxis_app/src/utils/colors.dart' as utils;
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'home': (BuildContext context) => HomePage(),
         'login': (BuildContext context) => LoginPage(),
+        'register': (BuildContext context) => RegisterPage(),
       },
     );
   }

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:seven_taxis_app/src/pages/login/login_controller.dart';
+import 'package:seven_taxis_app/src/pages/register/register_controller.dart';
 import 'package:seven_taxis_app/src/utils/colors.dart' as utils;
 import 'package:seven_taxis_app/src/widgets/buttom_app.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final LoginController _con = LoginController();
+class _RegisterPageState extends State<RegisterPage> {
+  final RegisterController _con = RegisterController();
 
   @override
   void initState() {
@@ -38,38 +38,26 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             _bannerApp(),
-            _textDescripcion(),
             _textLogin(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.11),
+            _textFildUsername(),
             _textFildEmail(),
             _textFildPassword(),
-            _buttonLogin(),
-            _textDontHaveAccount(),
+            _textFildConfirmPassword(),
+            _buttonRegister(),
           ],
         ),
       ),
     );
   }
 
-  Widget _textDontHaveAccount() {
-    return GestureDetector(
-      onTap: _con.goToRegisterPage,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 40),
-        child: const Text(
-          'No Tienes Cuenta?',
-          style: TextStyle(fontSize: 18, color: Colors.grey),
-        ),
-      ),
-    );
-  }
 
-  Widget _buttonLogin() {
+
+  Widget _buttonRegister() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
       child: ButtonApp(
-        onPressed: _con.login,
-        text: 'Iniciar Sesión', // Corrección de error tipográfico
+        onPressed: _con.register,
+        text: 'Registrar Ahora', // Corrección de error tipográfico
         color: utils.Colors.seven,
         textColor: Colors.white,
       ),
@@ -92,6 +80,22 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  Widget _textFildUsername() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
+      child: TextField(
+        controller: _con.usernameController,
+        decoration: InputDecoration(
+          hintText: 'Pepito Perez',
+          labelText: 'Nombre De Usuario',
+          suffixIcon: Icon(
+            Icons.person_outlined,
+            color: utils.Colors.seven,
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget _textFildPassword() {
     return Container(
@@ -101,7 +105,24 @@ class _LoginPageState extends State<LoginPage> {
         controller: _con.passwordController,
         decoration: InputDecoration(
           labelText: 'Contraseña',
-          labelStyle: const TextStyle(color: Colors.black54, fontSize: 23),
+          labelStyle: const TextStyle(color: Colors.black54, fontSize: 18),
+          suffixIcon: Icon(
+            Icons.lock_open_outlined,
+            color: utils.Colors.seven,
+          ),
+        ),
+      ),
+    );
+  }
+  Widget _textFildConfirmPassword() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+      child: TextField(
+        obscureText: true,
+        controller: _con.confirmPasswordController,
+        decoration: InputDecoration(
+          labelText: 'Confirmar Contraseña',
+          labelStyle: const TextStyle(color: Colors.black54, fontSize: 18),
           suffixIcon: Icon(
             Icons.lock_open_outlined,
             color: utils.Colors.seven,
@@ -114,24 +135,14 @@ class _LoginPageState extends State<LoginPage> {
   Widget _textLogin() {
     return Container(
       alignment: Alignment.centerLeft,
-      margin: const EdgeInsets.symmetric(horizontal: 30),
+      margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
       child: const Text(
-        'Login',
+        'REGISTRO',
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
       ),
     );
   }
 
-  Widget _textDescripcion() {
-    return Container(
-      alignment: Alignment.centerLeft,
-      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: const Text(
-        'Continua Con Tu ',
-        style: TextStyle(color: Colors.black54, fontSize: 24, fontFamily: 'NinbusSans'),
-      ),
-    );
-  }
 
   Widget _bannerApp() {
     return ClipPath(
