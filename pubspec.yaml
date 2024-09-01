@@ -38,6 +38,7 @@ dependencies:
   flutter_custom_clippers: ^2.1.0
   firebase_core: ^3.4.0
   firebase_analytics: ^11.3.0
+  firebase_auth: ^5.2.0
   
 
 dev_dependencies:
