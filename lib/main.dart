@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:seven_taxis_app/src/pages/driver/register/driver_register_page.dart';
 import 'package:seven_taxis_app/src/pages/home/home_page.dart';
 import 'package:seven_taxis_app/src/pages/login/login_page.dart';
-import 'package:seven_taxis_app/src/pages/register/register_page.dart';
 import 'package:seven_taxis_app/src/utils/colors.dart' as utils;
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:seven_taxis_app/src/pages/client/register/client_register_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +44,8 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'home': (BuildContext context) => HomePage(),
         'login': (BuildContext context) => LoginPage(),
-        'register': (BuildContext context) => RegisterPage(),
+        'client/register': (BuildContext context) => ClientRegisterPage(),
+        'driver/register': (BuildContext context) => DriverRegisterPage(),
       },
     );
   }

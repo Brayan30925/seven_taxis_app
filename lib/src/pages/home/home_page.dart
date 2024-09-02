@@ -23,11 +23,11 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 50),
             _textSeleccionaRol('SELECCIONA TU ROL'),
             SizedBox(height: 50),
-            _imageTypeUser(context,'assets/img/pasajero.png'),
+            _imageTypeUser(context,'assets/img/pasajero.png','client'),
             SizedBox(height: 10),
             _textTypeuser('CLIENTE'),
             SizedBox(height: 50),
-            _imageTypeUser(context,'assets/img/driver.png'),
+            _imageTypeUser(context,'assets/img/driver.png','driver'),
             SizedBox(height: 10),
             _textTypeuser('CONDUCTOR')
           ],
@@ -73,9 +73,9 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _imageTypeUser(BuildContext context, String image) {
+  Widget _imageTypeUser(BuildContext context, String image,String typeuser) {
     return GestureDetector(
-      onTap:_con.goToLoginPage,
+      onTap:()=>_con.goToLoginPage(typeuser),
       child: CircleAvatar(
         backgroundImage: AssetImage(image),
         radius: 50,

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:seven_taxis_app/src/pages/register/register_controller.dart';
 import 'package:seven_taxis_app/src/utils/colors.dart' as utils;
+import 'package:seven_taxis_app/src/utils/otp_widget.dart';
 import 'package:seven_taxis_app/src/widgets/buttom_app.dart';
-
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+import 'package:seven_taxis_app/src/pages/driver/register/driver_register_controller.dart';
+class DriverRegisterPage extends StatefulWidget {
+  const DriverRegisterPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<DriverRegisterPage> createState() => Driver_RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
-  final RegisterController _con = RegisterController();
+class Driver_RegisterPageState extends State<DriverRegisterPage> {
+  final DriverRegisterController _con = DriverRegisterController();
 
   @override
   void initState() {
@@ -39,6 +39,18 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             _bannerApp(),
             _textLogin(),
+            _textLicencePlate(),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 25),
+              child: OTPFields(
+                pin1: _con.pin1Controller,
+                pin2: _con.pin2Controller,
+                pin3: _con.pin3Controller,
+                pin4: _con.pin4Controller,
+                pin5: _con.pin5Controller,
+                pin6: _con.pin6Controller,
+              ),
+            ),
             _textFildUsername(),
             _textFildEmail(),
             _textFildPassword(),
@@ -131,13 +143,26 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+  Widget _textLicencePlate(){
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.symmetric(horizontal: 30),
+      child: Text(
+        'Placa Del Vehiculo',
+        style: TextStyle(
+          color: Colors.grey[700],
+          fontSize: 17
+        ),
+      ),
+    );
+  }
 
   Widget _textLogin() {
     return Container(
       alignment: Alignment.centerLeft,
       margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
       child: const Text(
-        'REGISTRO',
+        'REGISTRO ',
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
       ),
     );
