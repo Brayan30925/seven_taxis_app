@@ -94,6 +94,7 @@ class DriverRegisterController {
           );
           await _driverProvider.create(driver);
           _progressDialog.hide();
+          Navigator.pushNamedAndRemoveUntil(context, 'driver/map',(route)=>false);
 
           utils.Snackbar.showSnackbar(context,'usuario registrado...');
         } else {

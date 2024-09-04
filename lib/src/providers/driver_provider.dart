@@ -22,4 +22,43 @@ class DriverProvider {
       return Future.error(errorMessage);
     }
   }
+  Future<Driver?> getById(String id) async {
+    try {
+      // Obtiene el documento de la colección por ID
+      DocumentSnapshot document = await _ref.doc(id).get();
+
+      // Verifica si el documento existe
+      if (!document.exists) {
+        // Retorna null si el documento no existe
+        return null;
+      }
+
+      // Verifica si los datos del documento son del tipo Map<String, dynamic>
+      Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
+
+      if (data == null) {
+        // Retorna null si los datos no son válidos
+        return null;
+      }
+      // Verifica si todos los campos necesarios están presentes
+      if (!data.containsKey('id') || !data.containsKey('username') ||
+          !data.containsKey('email')) {
+        // Retorna null si faltan campos necesarios
+        return null;
+      }
+
+      // Crea el objeto Client usando los datos del documento
+
+      print('estoy enviando el conductor');
+      Driver driver = Driver.fromJson(data);
+      return driver;
+    }catch(error){
+      print("Error al obtener el conductor: $error");
+      return null;
+    }
+
+    }
+
+
+
 }

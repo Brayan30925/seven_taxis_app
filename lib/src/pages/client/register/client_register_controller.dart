@@ -19,6 +19,7 @@ class ClientRegisterController {
   late ClientProvider _clientProvider;
   late ProgressDialog _progressDialog;
 
+
   Future<void> init(BuildContext context) async {
     this.context = context;
     _authProvider = MyAuthProvider();
