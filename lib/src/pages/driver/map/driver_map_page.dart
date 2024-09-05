@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:uber_clone_flutter_udemy/src/pages/driver/map/driver_map_controller.dart';
-import 'package:uber_clone_flutter_udemy/src/widgets/button_app.dart';
+
+
+import '../../../widgets/buttom_app.dart';
+import 'driver_map_controller.dart';
 
 class DriverMapPage extends StatefulWidget {
   @override
@@ -86,6 +88,7 @@ class _DriverMapPageState extends State<DriverMapPage> {
       alignment: Alignment.bottomCenter,
       margin: EdgeInsets.symmetric(horizontal: 60, vertical: 30),
       child: ButtonApp(
+        onPressed: (){},
         text: 'CONECTARSE',
         color: Colors.amber,
         textColor: Colors.black,

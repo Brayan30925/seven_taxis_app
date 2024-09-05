@@ -41,22 +41,22 @@ class ButtonApp extends StatelessWidget {
                 text,
                 style: TextStyle(
                   color: textColor,
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
           Positioned(
-            right: 10, // Ajusta la distancia del ícono desde el borde derecho
+            right: -8, // Ajusta la distancia del ícono desde el borde derecho
             top: 0,
-            bottom: 0,
+            bottom: 4,
             child: Container(
               decoration: BoxDecoration(
                 color: iconBackgroundColor,
                 shape: BoxShape.circle,
               ),
-              padding: const EdgeInsets.all(8.0), // Ajusta el padding alrededor del ícono
+              padding: const EdgeInsets.all(4.0), // Ajusta el padding alrededor del ícono
               child: Icon(
                 icon,
                 color: Colors.black54,

@@ -5,13 +5,13 @@ import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
-import 'package:uber_clone_flutter_udemy/src/utils/snackbar.dart' as utils;
 
+import 'package:seven_taxis_app/src/utils/snackbar.dart' as utils;
 
 class DriverMapController {
 
-  BuildContext context;
-  Function refresh;
+  late BuildContext context;
+  late Function refresh;
   GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
   Completer<GoogleMapController> _mapController = Completer();
 
@@ -22,10 +22,10 @@ class DriverMapController {
 
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  Position _position;
-  StreamSubscription<Position> _positionStream;
+  late Position _position;
+  late StreamSubscription<Position> _positionStream;
 
-  BitmapDescriptor markerDriver;
+  late BitmapDescriptor markerDriver;
 
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
@@ -42,7 +42,7 @@ class DriverMapController {
   void updateLocation() async  {
     try {
       await _determinePosition();
-      _position = await Geolocator.getLastKnownPosition();
+      _position = (await Geolocator.getLastKnownPosition())!;
       centerPosition();
 
       addMarker(
@@ -56,8 +56,10 @@ class DriverMapController {
       refresh();
 
       _positionStream = Geolocator.getPositionStream(
-          desiredAccuracy: LocationAccuracy.best,
-          distanceFilter: 1
+        locationSettings: LocationSettings(
+          accuracy: LocationAccuracy.best, // Cambia a LocationSettings
+          distanceFilter: 1, // Distancia en metros antes de obtener otra actualización
+        ),
       ).listen((Position position) {
           _position = position;
           addMarker(
@@ -82,7 +84,7 @@ class DriverMapController {
       animateCameraToPosition(_position.latitude, _position.longitude);
     }
     else {
-      utils.Snackbar.showSnackbar(context, key, 'Activa el GPS para obtener la posicion');
+      utils.Snackbar.showSnackbar(context,  'Activa el GPS para obtener la posicion');
     }
   }
 
@@ -168,7 +170,7 @@ class DriverMapController {
       draggable: false,
       zIndex: 2,
       flat: true,
-      anchor: Offset(0.5, 0.5),
+      anchor: const Offset(0.5, 0.5),
       rotation: _position.heading
     );
 
