@@ -22,49 +22,44 @@ class ButtonApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed, // Usa onPressed directamente
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12), // Ajusta el padding para el botón
       ),
-      child: Stack(
-        clipBehavior: Clip.none,
+      child: Row(
+        mainAxisSize: MainAxisSize.min, // Ajusta el tamaño del botón al contenido
+        mainAxisAlignment: MainAxisAlignment.center, // Centra el contenido horizontalmente
         children: [
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              height: 50,
-              alignment: Alignment.center,
-              child: Text(
-                text,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+          Flexible(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
+              overflow: TextOverflow.ellipsis, // Agrega puntos suspensivos si el texto es muy largo
             ),
           ),
-          Positioned(
-            right: -8, // Ajusta la distancia del ícono desde el borde derecho
-            top: 0,
-            bottom: 4,
-            child: Container(
-              decoration: BoxDecoration(
-                color: iconBackgroundColor,
-                shape: BoxShape.circle,
-              ),
-              padding: const EdgeInsets.all(4.0), // Ajusta el padding alrededor del ícono
-              child: Icon(
-                icon,
-                color: Colors.black54,
-              ),
+          SizedBox(width: 8), // Espacio entre el texto y el ícono
+          Container(
+            decoration: BoxDecoration(
+              color: iconBackgroundColor,
+              shape: BoxShape.circle,
+            ),
+            padding: EdgeInsets.all(4.0), // Ajusta el padding alrededor del ícono
+            child: Icon(
+              icon,
+              color: Colors.black54,
             ),
           ),
         ],
       ),
     );
   }
+
 }

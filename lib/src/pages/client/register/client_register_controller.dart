@@ -24,7 +24,7 @@ class ClientRegisterController {
     this.context = context;
     _authProvider = MyAuthProvider();
     _clientProvider = ClientProvider();
-    _progressDialog= MyProgressDialog.createprogressDialog(context, 'Espere Un Momento...');
+    _progressDialog= MyProgressDialog.createProgressDialog(context, 'Espere Un Momento...');
   }
 
   void dispose() {
@@ -80,6 +80,8 @@ class ClientRegisterController {
           _progressDialog.hide();
 
           utils.Snackbar.showSnackbar(context,'usuario registrado...');
+          Navigator.pushNamedAndRemoveUntil(context, 'client/map', (route) => false);
+
         } else {
           _progressDialog.hide();
           print("El usuario no está autenticado");

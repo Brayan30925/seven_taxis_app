@@ -30,7 +30,7 @@ class DriverRegisterController {
     this.context = context;
     _authProvider = MyAuthProvider();
     _driverProvider = DriverProvider();
-    _progressDialog= MyProgressDialog.createprogressDialog(context, 'Espere Un Momento...');
+    _progressDialog= MyProgressDialog.createProgressDialog(context, 'Espere Un Momento...');
   }
 
   void dispose() {

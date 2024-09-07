@@ -21,6 +21,10 @@ class ClientProvider {
       return Future.error(errorMessage);
     }
   }
+  Stream<DocumentSnapshot> getByIdStream(String id){
+    return _ref.doc(id).snapshots(includeMetadataChanges: true);
+  }
+
   Future<Client?> getById(String id) async {
     try {
       // Obtiene el documento de la colección por ID

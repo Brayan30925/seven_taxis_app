@@ -1,36 +1,30 @@
-import 'dart:convert';
-
-Driver driverFromJson(String str) => Driver.fromJson(json.decode(str));
-
-String driverToJson(Driver data) => json.encode(data.toJson());
-
 class Driver {
-  String id;
-  String username;
-  String email;
-  String password;
-  String plate;
+  String? id;
+  String? username;
+  String? email;
+  String? password;
+  String? plate;
 
   Driver({
-    required this.id,
-    required this.username,
-    required this.email,
-    required this.password,
-    required this.plate,
+    this.id,
+    this.username,
+    this.email,
+    this.password,
+    this.plate,
   });
 
   factory Driver.fromJson(Map<String, dynamic> json) => Driver(
-    id: json["id"],
-    username: json["username"],
-    email: json["email"],
-    password: json["password"],
-    plate: json["plate"],
+    id: json["id"] as String?,
+    username: json["username"] as String?,
+    email: json["email"] as String?,
+    password: json["password"] as String?,
+    plate: json["plate"] as String?,
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "username": username,
-    "email": email,
-    "plate": plate,
+    "id": id ?? '',
+    "username": username ?? '',
+    "email": email ?? '',
+    "plate": plate ?? '',
   };
 }

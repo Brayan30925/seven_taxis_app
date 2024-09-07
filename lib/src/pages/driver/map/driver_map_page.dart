@@ -24,10 +24,18 @@ class _DriverMapPageState extends State<DriverMapPage> {
       _con.init(context, refresh);
     });
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    print('se ejecuto el dispose');
+    _con.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: _drawer(),
       key: _con.key,
       body: Stack(
         children: [
@@ -51,21 +59,82 @@ class _DriverMapPageState extends State<DriverMapPage> {
       ),
     );
   }
+  Widget _drawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: Text(
+                    _con.driver?.username ?? 'Nombre no disponible',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    _con.driver?.email ?? 'Email no disponible',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[800],
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                  ),
+                ),
+                SizedBox(height: 2),
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/img/profile.jpg'),
+                  radius: 40,
+                ),
+              ],
+            ),
+            decoration: BoxDecoration(
+              color: Colors.amber,
+            ),
+          ),
+          ListTile(
+            title: Text('editar perfil'),
+            trailing: Icon(Icons.edit),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text('cerrar sesion'),
+            trailing: Icon(Icons.power_settings_new),
+            onTap: _con.signOut,
+          )
+        ],
+      ),
+    );
+  }
+
 
   Widget _buttonCenterPosition() {
-    return Container(
-      alignment: Alignment.centerRight,
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      child: Card(
-        shape: CircleBorder(),
-        color: Colors.white,
-        elevation: 4.0,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Icon(
-            Icons.location_searching, 
-            color: Colors.grey[600], 
-            size: 20,
+    return GestureDetector(
+      onTap: _con.centerPosition,
+      child: Container(
+        alignment: Alignment.centerRight,
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: Card(
+          shape: CircleBorder(),
+          color: Colors.white,
+          elevation: 4.0,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Icon(
+              Icons.location_searching,
+              color: Colors.grey[600],
+              size: 20,
+            ),
           ),
         ),
       ),
@@ -73,13 +142,14 @@ class _DriverMapPageState extends State<DriverMapPage> {
   }
 
   Widget _buttonDrawer() {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: IconButton(
-        onPressed: () {},
-        icon: Icon(Icons.menu, color: Colors.white,),
-      ),
-    );
+    return  Container(
+        alignment: Alignment.centerLeft,
+        child: IconButton(
+          onPressed: _con.openDrawer,
+          icon: Icon(Icons.menu, color: Colors.white,),
+        ),
+      );
+    ;
   }
 
   Widget _buttonConnect() {
@@ -88,9 +158,9 @@ class _DriverMapPageState extends State<DriverMapPage> {
       alignment: Alignment.bottomCenter,
       margin: EdgeInsets.symmetric(horizontal: 60, vertical: 30),
       child: ButtonApp(
-        onPressed: (){},
-        text: 'CONECTARSE',
-        color: Colors.amber,
+        onPressed: _con.connect,
+        text: _con.isConnect ? 'DESCONECTARSE' : 'CONECTARSE',
+        color: _con.isConnect ? (Colors.grey[600] ?? Colors.grey) : Colors.amber,
         textColor: Colors.black,
       ),
     );

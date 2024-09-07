@@ -30,7 +30,7 @@ class LoginController {
     _authProvider = MyAuthProvider();
     _clientProvider =ClientProvider();
     _driverProvider = DriverProvider();
-    _progressDialog = MyProgressDialog.createprogressDialog(context, 'Espere Un Momento...');
+    _progressDialog = MyProgressDialog.createProgressDialog(context, 'Espere Un Momento...');
     _sharedPref = SharedPref();
     _typeUser= await _sharedPref.read('typeUser');
     
