@@ -50,6 +50,9 @@ dependencies:
   geoflutterfire2: ^2.3.13
   geocoding: ^2.0.5
   flutter_polyline_points: ^2.0.0
+  lottie: ^3.1.2
+  firebase_messaging: ^14.9.3
+  googleapis_auth: ^1.6.0
 
   
 
@@ -82,6 +85,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/img/
+    - assets/json/
+    - assets/conseven.json
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

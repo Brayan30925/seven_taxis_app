@@ -7,18 +7,26 @@ class HomeController {
   late SharedPref _sharedPref;
   late MyAuthProvider _authProvider;
   late String _typeUser;
+  late String isNotification;
+
 
   Future<void> init(BuildContext context) async {
     this.context = context;
     _sharedPref = SharedPref();
     _authProvider = MyAuthProvider();
+    isNotification = await _sharedPref.read('isNotification') ?? 'false' ;
+
 
     // Verifica si es necesario chequear si el usuario está logueado
     if (await _shouldCheckUserLogged()) {
-      _typeUser = await _sharedPref.read('typeUser');
-      _authProvider.checkIfUserIsLogged(context, _typeUser);
+      // Asegura que typeUser no sea null
+      _typeUser = await _sharedPref.read('typeUser') ?? ''; // Proporciónalo con un valor predeterminado
+      _authProvider.checkIfUserIsLogged(context, _typeUser,isNotification);
+
+
     }
   }
+
 
   Future<bool> _shouldCheckUserLogged() async {
     // Aquí decides si realmente necesitas verificar si el usuario está logueado

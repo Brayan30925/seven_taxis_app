@@ -15,18 +15,22 @@ class MyAuthProvider {
     return await _firebaseAuth.signOut();
   }
 
-  Future<void> checkIfUserIsLogged(BuildContext context, String typeUser) async {
+  Future<void> checkIfUserIsLogged(BuildContext context, String typeUser,String isNotification) async {
     User? user = _firebaseAuth.currentUser;
 
     if (user != null) {
-      if (typeUser == 'client') {
-        Navigator.pushNamedAndRemoveUntil(context, 'client/map', (route) => false);
+      if (isNotification != 'true') {
+        if (typeUser == 'client') {
+          Navigator.pushNamedAndRemoveUntil(
+              context, 'client/map', (route) => false);
+        } else {
+          Navigator.pushNamedAndRemoveUntil(
+              context, 'driver/map', (route) => false);
+        }
+        print('Usuario está logueado');
       } else {
-        Navigator.pushNamedAndRemoveUntil(context, 'driver/map', (route) => false);
+        print('Usuario no está logueado');
       }
-      print('Usuario está logueado');
-    } else {
-      print('Usuario no está logueado');
     }
   }
 

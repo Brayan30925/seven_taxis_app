@@ -101,6 +101,14 @@ class ClientTravelInfoController {
       print('Exception: $e'); // Imprimir excepción para depuración
     }
   }
+  void goToRequest() {
+    Navigator.pushNamed(context, 'client/travel/request', arguments: {
+      'from': from,
+      'to': to,
+      'fromLatLng': fromLatLng,
+      'toLatLng': toLatLng,
+    });
+  }
 
   void calculatePrices()async{
     Prices prices = await _pricesProvider.getAll();

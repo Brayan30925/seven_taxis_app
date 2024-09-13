@@ -25,6 +25,7 @@ class LoginController {
   late String _typeUser;
 
 
+
   Future<void> init(BuildContext context) async {
     this.context = context;
     _authProvider = MyAuthProvider();
@@ -33,7 +34,9 @@ class LoginController {
     _progressDialog = MyProgressDialog.createProgressDialog(context, 'Espere Un Momento...');
     _sharedPref = SharedPref();
     _typeUser= await _sharedPref.read('typeUser');
-    
+
+
+
     print("************tipo de usuario***********");
     print(_typeUser);
   }
@@ -63,29 +66,32 @@ class LoginController {
       utils.Snackbar.showSnackbar(context,'usuario o contraseña incorrectos');
     }
     else if (resul != null){
-      if(_typeUser=='client'){
-        String collectionName = 'clients';
-        String userId = resul;
-        bool exists = await _authProvider.existsInCollection(collectionName, userId);
-        print('miramos si existe en la coleccion $exists');
-        if(exists){
-          Navigator.pushNamedAndRemoveUntil(context, 'client/map', (route)=> false);
-        }else{
-          utils.Snackbar.showSnackbar(context,'error no tienes permisos ');
-          _authProvider.signOut();
+
+
+        if(_typeUser=='client'){
+          String collectionName = 'clients';
+          String userId = resul;
+          bool exists = await _authProvider.existsInCollection(collectionName, userId);
+          print('miramos si existe en la coleccion $exists');
+          if(exists){
+            Navigator.pushNamedAndRemoveUntil(context, 'client/map', (route)=> false);
+          }else{
+            utils.Snackbar.showSnackbar(context,'error no tienes permisos ');
+            _authProvider.signOut();
+          }
+        }else if(_typeUser == 'driver'){
+          String collectionName = 'Drivers';
+          String userId = resul;
+          bool exists = await _authProvider.existsInCollection(collectionName, userId);
+          print('miramos si existe en la coleccion $exists');
+          if(exists){
+            Navigator.pushNamedAndRemoveUntil(context, 'driver/map', (route)=> false);
+          }else{
+            utils.Snackbar.showSnackbar(context,'error no tienes permisos ');
+            _authProvider.signOut();
+          }
         }
-      }else if(_typeUser == 'driver'){
-        String collectionName = 'Drivers';
-        String userId = resul;
-        bool exists = await _authProvider.existsInCollection(collectionName, userId);
-        print('miramos si existe en la coleccion $exists');
-        if(exists){
-          Navigator.pushNamedAndRemoveUntil(context, 'driver/map', (route)=> false);
-        }else{
-          utils.Snackbar.showSnackbar(context,'error no tienes permisos ');
-          _authProvider.signOut();
-        }
-      }
+
 
 
     }

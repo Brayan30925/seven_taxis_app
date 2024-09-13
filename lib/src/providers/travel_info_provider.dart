@@ -1,27 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uber_clone_flutter_udemy/src/models/travel_info.dart';
+import 'package:seven_taxis_app/src/models/travel_info.dart';
 
 class TravelInfoProvider {
-
-  CollectionReference _ref;
+  late CollectionReference _ref;
 
   TravelInfoProvider() {
     _ref = FirebaseFirestore.instance.collection('TravelInfo');
   }
 
-  Future<void> create(TravelInfo travelInfo) {
-    String errorMessage;
-
+  Future<void> create(TravelInfo travelInfo) async {
     try {
-      return _ref.doc(travelInfo.id).set(travelInfo.toJson());
-    } catch(error) {
-      errorMessage = error.code;
+      await _ref.doc(travelInfo.id).set(travelInfo.toJson());
+    } on FirebaseException catch (error) {
+      // Manejo de errores específicos de Firebase
+      return Future.error(error.message ?? 'Error desconocido al crear TravelInfo.');
+    } catch (error) {
+      // Manejo de cualquier otro tipo de error
+      return Future.error('Error inesperado: $error');
     }
-
-    if (errorMessage != null) {
-      return Future.error(errorMessage);
-    }
-
   }
-
 }

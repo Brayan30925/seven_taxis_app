@@ -9,6 +9,7 @@ import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:seven_taxis_app/src/models/driver.dart';
 import 'package:seven_taxis_app/src/providers/driver_provider.dart';
 import 'package:seven_taxis_app/src/providers/geofire_provider.dart';
+import 'package:seven_taxis_app/src/providers/push_notifications_provider.dart';
 import 'package:seven_taxis_app/src/utils/snackbar.dart' as utils;
 import 'package:seven_taxis_app/src/providers/auth_provider.dart';
 
@@ -39,6 +40,7 @@ class DriverMapController {
 
   bool isConnect = false;
   late ProgressDialog _progressDialog;
+  late PushNotificationsProvider _pushNotificationsProvider;
 
 
   late StreamSubscription<DocumentSnapshot> _statusSuscription;
@@ -53,8 +55,10 @@ class DriverMapController {
     _authProvider = new MyAuthProvider();
     _progressDialog = MyProgressDialog.createProgressDialog(context, 'conectandose....');
     _driverProvider = DriverProvider();
+    _pushNotificationsProvider=PushNotificationsProvider();
     markerDriver = await createMarkerImageFromAsset('assets/img/taxi_icon.png');
     checkGPS();
+    saveToken();
     getDriverInfo();
   }
 
@@ -193,6 +197,11 @@ class DriverMapController {
     else {
       utils.Snackbar.showSnackbar(context,  'Activa el GPS para obtener la posicion');
     }
+  }
+
+  void saveToken(){
+    _pushNotificationsProvider.saveToken(_authProvider.getUser()!.uid, 'driver');
+
   }
 
   void checkGPS() async {

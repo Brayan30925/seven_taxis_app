@@ -11,6 +11,7 @@ import 'package:seven_taxis_app/src/providers/auth_provider.dart';
 import 'package:seven_taxis_app/src/providers/geofire_provider.dart';
 import 'package:seven_taxis_app/src/providers/driver_provider.dart';
 import 'package:seven_taxis_app/src/providers/client_provider.dart';
+import 'package:seven_taxis_app/src/providers/push_notifications_provider.dart';
 import '../../../utils/my_progress_dialog.dart';
 import 'package:seven_taxis_app/src/utils/snackbar.dart' as utils;
 import 'package:seven_taxis_app/src/models/cliente.dart';
@@ -46,6 +47,7 @@ class ClientMapController {
   late MyAuthProvider _authProvider;
   late DriverProvider _driverProvider;
   late ClientProvider _clientProvider;
+  late PushNotificationsProvider _pushNotificationsProvider;
 
   bool isConnect = false;
   late ProgressDialog _progressDialog;
@@ -88,8 +90,10 @@ class ClientMapController {
     _progressDialog = MyProgressDialog.createProgressDialog(context, 'Conectandose...');
     _driverProvider = DriverProvider();
     _clientProvider = ClientProvider();
+    _pushNotificationsProvider = PushNotificationsProvider();
     markerDriver = await createMarkerImageFromAsset('assets/img/icon_taxi.png');
     checkGPS();
+    saveToken();
     getClientInfo();
   }
   void changeFromTo() {
@@ -293,7 +297,7 @@ class ClientMapController {
             addMarker(d.id, point.latitude,
                 point.longitude,
                 'conductor disponible',
-                '', markerDriver
+                d.id, markerDriver
             );
           } else {
             print('Geopoint no disponible en este documento.');
@@ -306,6 +310,10 @@ class ClientMapController {
 
 
     });
+  }
+  void saveToken(){
+    _pushNotificationsProvider.saveToken(_authProvider.getUser()!.uid, 'client');
+
   }
 
 
