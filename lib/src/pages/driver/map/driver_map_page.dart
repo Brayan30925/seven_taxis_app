@@ -93,7 +93,9 @@ class _DriverMapPageState extends State<DriverMapPage> {
                 ),
                 SizedBox(height: 2),
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/img/profile.jpg'),
+                  backgroundImage: _con.driver?.image != null && _con.driver!.image!.isNotEmpty
+                      ? NetworkImage(_con.driver!.image!) // Imagen de red si está disponible
+                      : AssetImage('assets/img/profile.jpg') as ImageProvider, // Imagen predeterminada
                   radius: 40,
                 ),
               ],
@@ -105,7 +107,11 @@ class _DriverMapPageState extends State<DriverMapPage> {
           ListTile(
             title: Text('editar perfil'),
             trailing: Icon(Icons.edit),
-            onTap: () {},
+            onTap:_con.goToEditPage,
+          ), ListTile(
+            title: Text('Historial de viajes '),
+            trailing: Icon(Icons.timer),
+            onTap: _con.goToHistoryPage,
           ),
           ListTile(
             title: Text('cerrar sesion'),

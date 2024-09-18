@@ -214,8 +214,13 @@ class ClientMapController {
     }
   }
 
+  void goToEditPage(){
+    Navigator.pushNamed(context, 'client/edit');
+  }
 
-
+  void goToHistoryPage(){
+    Navigator.pushNamed(context, 'client/history');
+  }
 
   void getClientInfo() {
     final user = _authProvider.getUser();
@@ -225,8 +230,9 @@ class ClientMapController {
         if (document.data() != null) {
           final data = document.data() as Map<String, dynamic>;
           client = Client.fromJson(data);
-
-          refresh(); // Llama a refresh para actualizar la UI
+          if(refresh != null) {
+            refresh();
+          }// Llama a refresh para actualizar la UI
         } else {
           print('Error: El documento no contiene datos');
         }
@@ -315,6 +321,8 @@ class ClientMapController {
     _pushNotificationsProvider.saveToken(_authProvider.getUser()!.uid, 'client');
 
   }
+
+
 
 
   void centerPosition() {

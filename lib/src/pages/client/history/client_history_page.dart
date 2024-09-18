@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:seven_taxis_app/src/models/TravelHistory.dart';
+import 'package:seven_taxis_app/src/pages/client/history/client_history_controller.dart';
 
 import '../../../utils/relative_time_util.dart';
-import 'driver_history_controller.dart';
 
-class DriverHistoryPage extends StatefulWidget {
+class ClientHistoryPage extends StatefulWidget {
   @override
-  _DriverHistoryPageState createState() => _DriverHistoryPageState();
+  _ClientHistoryPageState createState() => _ClientHistoryPageState();
 }
 
-class _DriverHistoryPageState extends State<DriverHistoryPage> {
-  DriverHistoryController _con = DriverHistoryController();
+class _ClientHistoryPageState extends State<ClientHistoryPage> {
+  ClientHistoryController _con = ClientHistoryController();
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class _DriverHistoryPageState extends State<DriverHistoryPage> {
                 return _cardHistoryInfo(
                   travel.from ?? '',
                   travel.to ?? '',
-                  travel.nameClient ?? 'nombre cliente', // Este campo lo puedes reemplazar con el nombre real si lo tienes
+                  travel.nameDriver ?? 'nombre conductor', // Este campo lo puedes reemplazar con el nombre real si lo tienes
                   travel.price?.toString() ?? '0',
                   travel.calificationDriver?.toString() ?? 'Sin calificación',
                   RelativeTimeUtil.getRelativeTime(travel.timestamp ?? 0),
@@ -87,7 +87,7 @@ class _DriverHistoryPageState extends State<DriverHistoryPage> {
                 Icon(Icons.drive_eta),
                 SizedBox(width: 5),
                 Text(
-                  'Cliente: ',
+                  'Conductor: ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Expanded(

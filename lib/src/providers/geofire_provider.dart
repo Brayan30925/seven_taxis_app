@@ -13,6 +13,10 @@ class GeoFireProvider{
     GeoFirePoint myLocation = _geo.point(latitude: lat, longitude: lon);
     return _ref.doc(id).set({'status': 'drivers_available','position': myLocation.data});
   }
+  Future<void>createWorking(String id,double lat,double lon){
+    GeoFirePoint myLocation = _geo.point(latitude: lat, longitude: lon);
+    return _ref.doc(id).set({'status': 'drivers_working','position': myLocation.data});
+  }
   Stream<List<DocumentSnapshot>>getNearbyDrivers(double lat,double long, double radius){
     GeoFirePoint center = _geo.point(latitude: lat, longitude: long);
     return _geo.collection(

@@ -3,7 +3,7 @@ import 'package:seven_taxis_app/src/providers/auth_provider.dart';
 import 'package:seven_taxis_app/src/providers/travel_history_provider.dart';
 import 'package:seven_taxis_app/src/models/TravelHistory.dart';
 
-class DriverHistoryController {
+class ClientHistoryController {
   Function? refresh;  // Hacer refresh opcional
   late BuildContext context;
   GlobalKey<ScaffoldState> key =  GlobalKey<ScaffoldState>();
@@ -26,13 +26,13 @@ class DriverHistoryController {
   Future<List<TravelHistory>> getAll() async {
     // Verificar que _authProvider no sea null antes de usarlo
     if (_authProvider != null && _authProvider!.getUser() != null) {
-      return await _travelHistoryProvider!.getByIdDriver(_authProvider!.getUser()!.uid);
+      return await _travelHistoryProvider!.getByIdClient(_authProvider!.getUser()!.uid);
     } else {
       // En caso de que haya algún problema, retornar una lista vacía
       return [];
     }
   }
   void goToDetailHistory(String id){
-    Navigator.pushNamed(context, 'driver/history/detail',arguments: id);
+    Navigator.pushNamed(context, 'client/history/detail',arguments: id);
   }
 }

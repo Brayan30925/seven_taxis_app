@@ -6,20 +6,20 @@ import 'package:seven_taxis_app/src/providers/auth_provider.dart';
 import 'package:seven_taxis_app/src/providers/driver_provider.dart';
 import 'package:seven_taxis_app/src/providers/travel_history_provider.dart';
 
-import '../../../providers/client_provider.dart';
 
 
-class ClientHistoryDetailController {
+
+class DriverHistoryDetailController {
   Function? refresh;
   BuildContext? context;
   GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
 
   TravelHistoryProvider? _travelHistoryProvider;
   MyAuthProvider? _authProvider;
-  ClientProvider? _clientProvider;
+  DriverProvider? _driverProvider;
 
   TravelHistory? travelHistory;
-  Client? client;
+  Driver? driver;
 
   String? idTravelHistory;
 
@@ -28,7 +28,7 @@ class ClientHistoryDetailController {
     this.refresh = refresh;
     _travelHistoryProvider =  TravelHistoryProvider();
     _authProvider =  MyAuthProvider();
-    _clientProvider=ClientProvider();
+    _driverProvider=DriverProvider();
 
     idTravelHistory = ModalRoute.of(context)?.settings.arguments as String;
 
@@ -37,11 +37,11 @@ class ClientHistoryDetailController {
 
   void getTravelHistoryInfo() async {
     travelHistory = await  _travelHistoryProvider?.getById(idTravelHistory!);
-    getClientInfo(travelHistory?.idClient ?? '');
+    getClientInfo(travelHistory?.idDriver ?? '');
   }
 
-  void getClientInfo(String idDriver) async {
-    client = await _clientProvider?.getById(idDriver);
+  void getClientInfo(String idClient) async {
+    driver = await _driverProvider?.getById(idClient);
     refresh!();
   }
 

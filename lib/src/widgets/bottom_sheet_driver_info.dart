@@ -7,9 +7,9 @@ class BottomSheetDriverInfo extends StatefulWidget {
   String email;
 
   BottomSheetDriverInfo({
-     @required this.imageUrl,
-     @required this.username,
-    @required this.email,
+     required this.imageUrl,
+     required this.username,
+    required this.email,
   });
 
   @override
@@ -31,10 +31,12 @@ class _BottomSheetDriverInfoState extends State<BottomSheetDriverInfo> {
             ),
           ),
           SizedBox(height: 15),
-          CircleAvatar(
-            backgroundImage: AssetImage('assets/img/profile.jpg'),
-            radius: 50,
-          ),
+        CircleAvatar(
+          backgroundImage: widget.imageUrl != null && widget.imageUrl.isNotEmpty
+              ? NetworkImage(widget.imageUrl) // Imagen de red si está disponible
+              : AssetImage('assets/img/profile.jpg') as ImageProvider, // Imagen predeterminada
+          radius: 40,
+        ),
           ListTile(
             title: Text(
               'Nombre',

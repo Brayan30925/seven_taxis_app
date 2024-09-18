@@ -4,7 +4,7 @@ import 'package:seven_taxis_app/src/providers/travel_history_provider.dart';
 import 'package:seven_taxis_app/src/utils/snackbar.dart' as utils;
 import '../../../models/TravelHistory.dart';
 
-class ClientTravelCalificationController {
+class DriverTravelCalificationController {
   late BuildContext context;
   GlobalKey<ScaffoldState> key = GlobalKey();
   late Function refresh;
@@ -50,14 +50,14 @@ class ClientTravelCalificationController {
     }
 
     Map<String, dynamic> data = {
-      'calificationDriver': calification ?? 1
+      'calificationClient': calification ?? 1
     };
 
     try {
       await _travelHistoryProvider.update(data, idTravelHistory);
       Navigator.pushNamedAndRemoveUntil(
         context,
-        'client/map',
+        'driver/map',
             (route) => false,
       );
     } catch (e) {

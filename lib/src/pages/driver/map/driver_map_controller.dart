@@ -188,6 +188,12 @@ class DriverMapController {
       print('Error en la localizacion: $error');
     }
   }
+  void goToEditPage(){
+    Navigator.pushNamed(context, 'driver/edit');
+  }
+  void goToHistoryPage(){
+    Navigator.pushNamed(context, 'driver/history');
+  }
 
 
   void centerPosition() {

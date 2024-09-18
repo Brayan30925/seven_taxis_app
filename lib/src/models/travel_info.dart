@@ -7,7 +7,7 @@ String travelInfoToJson(TravelInfo data) => json.encode(data.toJson());
 class TravelInfo {
   String id;
   String status;
-  String? idDriver; // Cambiado a nullable
+  String idDriver; // Cambiado a nullable
   String from;
   String to;
   String idTravelHistory;
@@ -20,7 +20,7 @@ class TravelInfo {
   TravelInfo({
     required this.id,
     required this.status,
-    this.idDriver, // Eliminado el requerido
+    required this.idDriver,
     required this.from,
     required this.to,
     required this.idTravelHistory,
@@ -48,7 +48,7 @@ class TravelInfo {
   Map<String, dynamic> toJson() => {
     "id": id,
     "status": status,
-    "idDriver": idDriver, // Permite null
+    "idDriver": idDriver,
     "from": from,
     "to": to,
     "idTravelHistory": idTravelHistory,
@@ -56,6 +56,6 @@ class TravelInfo {
     "fromLng": fromLng,
     "toLat": toLat,
     "toLng": toLng,
-    "price": price, // Corrección de typo "Price"
+    "price": price,
   };
 }

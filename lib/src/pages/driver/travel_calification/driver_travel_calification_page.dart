@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:seven_taxis_app/src/pages/client/travel_calification/client_travel_calification_controller.dart';
+import 'package:seven_taxis_app/src/pages/driver/travel_calification/driver_travel_calification_controller.dart';
 import 'package:seven_taxis_app/src/widgets/buttom_app.dart';
 
-class ClientTravelCalificationPage extends StatefulWidget {
+class DriverTravelCalificationPage extends StatefulWidget {
   @override
-  _ClientTravelCalificationPageState createState() => _ClientTravelCalificationPageState();
+  _DriverTravelCalificationPageState createState() => _DriverTravelCalificationPageState();
 }
 
-class _ClientTravelCalificationPageState extends State<ClientTravelCalificationPage> {
-  late final ClientTravelCalificationController _con;
+class _DriverTravelCalificationPageState extends State<DriverTravelCalificationPage> {
+  late final DriverTravelCalificationController _con;
 
   @override
   void initState() {
     super.initState();
-    _con = ClientTravelCalificationController();
+    _con = DriverTravelCalificationController();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _con.init(context, refresh);
     });
@@ -80,7 +80,7 @@ class _ClientTravelCalificationPageState extends State<ClientTravelCalificationP
 
   Widget _textCalificateYourDriver() {
     return Text(
-      'CALIFICA A TU CONDUCTOR',
+      'CALIFICA A TU CLIENTE',
       style: TextStyle(
         color: Colors.cyan,
         fontWeight: FontWeight.bold,

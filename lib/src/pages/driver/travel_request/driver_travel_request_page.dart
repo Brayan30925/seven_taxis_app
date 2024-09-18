@@ -14,6 +14,13 @@ class _DriverTravelRequestPageState extends State<DriverTravelRequestPage> {
   DriverTravelRequestController _con = DriverTravelRequestController();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _con.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
@@ -46,7 +53,7 @@ class _DriverTravelRequestPageState extends State<DriverTravelRequestPage> {
           Container(
             width: MediaQuery.of(context).size.width * 0.45,
             child: ButtonApp(
-              onPressed: () {},
+              onPressed: _con.cancelTravel,
               text: 'Cancelar',
               color: Colors.red,
               textColor: Colors.white,
@@ -56,7 +63,7 @@ class _DriverTravelRequestPageState extends State<DriverTravelRequestPage> {
           Container(
             width: MediaQuery.of(context).size.width * 0.45,
             child: ButtonApp(
-              onPressed: () {},
+              onPressed: _con.acceptTravel,
               text: 'Aceptar',
               color: Colors.cyan,
               textColor: Colors.white,
@@ -72,7 +79,7 @@ class _DriverTravelRequestPageState extends State<DriverTravelRequestPage> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 30),
       child: Text(
-        '0',
+        _con.seconds.toString(),
         style: TextStyle(fontSize: 50),
       ),
     );

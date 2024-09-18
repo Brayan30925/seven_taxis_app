@@ -11,7 +11,7 @@ import 'package:seven_taxis_app/src/providers/driver_provider.dart';
 import 'package:seven_taxis_app/src/providers/geofire_provider.dart';
 import 'package:seven_taxis_app/src/providers/push_notifications_provider.dart';
 import 'package:seven_taxis_app/src/providers/travel_info_provider.dart';
-
+import 'package:seven_taxis_app/src/utils/snackbar.dart' as utils;
 class ClientTravelRequestController {
   late BuildContext context;
   late Function refresh;
@@ -29,6 +29,7 @@ class ClientTravelRequestController {
   late PushNotificationsProvider _pushNotificationsProvider;
   List<String> nearbyDrivers = List<String>.empty(growable: true);
   late StreamSubscription<List<DocumentSnapshot>> _streamSubscription;
+  late StreamSubscription<DocumentSnapshot> _streamStatusSubscription;
 
 
   Future<void> init(BuildContext context, Function refresh) async {
@@ -53,9 +54,39 @@ class ClientTravelRequestController {
 
     await _createTravelInfo();
     _getNearbyDrivers();
+
   }
+
+  void _checkDriverResponse() {
+    Stream<DocumentSnapshot> stream = _travelInfoProvider.getByidStream(_authProvider.getUser()!.uid);
+
+   _streamStatusSubscription= stream.listen((DocumentSnapshot document) {
+      // Convertir el 'Object?' devuelto por 'document.data()' a 'Map<String, dynamic>'
+      if (document.data() != null) {
+        TravelInfo travelInfo = TravelInfo.fromJson(document.data() as Map<String, dynamic>);
+        if(travelInfo != null && travelInfo.status == 'accepted'){
+          Navigator.pushNamedAndRemoveUntil(context, 'client/travel/map', (route)=>false);
+           //Navigator.pushReplacementNamed(context, 'client/travel/map');
+        }else if(travelInfo.status== 'no_accepted'){
+          utils.Snackbar.showSnackbar(context, 'EL CONDUCTOR NO ACEPTO TU SOLICITUD ');
+          Future.delayed(Duration(milliseconds: 2000),(){
+            Navigator.pushNamedAndRemoveUntil(context, 'client/map', (route)=>false);
+
+          });
+
+
+        }
+
+      } else {
+        print('El documento no tiene datos');
+      }
+    });
+  }
+
+
   void dispose(){
-    _streamSubscription?.cancel();
+    _streamSubscription.cancel();
+    _streamStatusSubscription.cancel();
   }
 
   void _getNearbyDrivers(){
@@ -97,6 +128,7 @@ class ClientTravelRequestController {
     );
 
     await _travelInfoProvider.create(travelInfo);
+    _checkDriverResponse();
   }
   Future<void>getDriverInfo(String idDriver)async{
     Driver? driver =await _driverProvider.getById(idDriver);

@@ -8,10 +8,10 @@ class BottomSheetClientInfo extends StatefulWidget {
   String plate;
 
   BottomSheetClientInfo({
-     @required this.imageUrl,
-     @required this.username,
-    @required this.email,
-     @required this.plate,
+     required this.imageUrl,
+     required this.username,
+     required this.email,
+     required this.plate,
   });
 
   @override
@@ -34,8 +34,10 @@ class _BottomSheetClientInfoState extends State<BottomSheetClientInfo> {
           ),
           SizedBox(height: 15),
           CircleAvatar(
-            backgroundImage: AssetImage('assets/img/profile.jpg'),
-            radius: 50,
+            backgroundImage: widget.imageUrl != null && widget.imageUrl.isNotEmpty
+                ? NetworkImage(widget.imageUrl) // Imagen de red si está disponible
+                : AssetImage('assets/img/profile.jpg') as ImageProvider, // Imagen predeterminada
+            radius: 40,
           ),
           ListTile(
             title: Text(

@@ -10,13 +10,15 @@ class Client {
   String? email;
   String? password;
   String? token;
+  String? image;
 
   Client({
     this.id,
     this.username,
     this.email,
     this.password,
-    this.token
+    this.token,
+    this.image
   });
 
   factory Client.fromJson(Map<String, dynamic> json) => Client(
@@ -24,13 +26,15 @@ class Client {
       username: json["username"] as String?,
       email: json["email"] as String?,
       password: json["password"] as String?,
-      token:json["token"]as String?
+      token:json["token"]as String?,
+      image:json["image"]as String?
   );
 
   Map<String, dynamic> toJson() => {
     "id": id ?? '',
     "username": username ?? '',
     "email": email ?? '',
-    "token": token ?? ''
+    "token": token ?? '',
+    "image":image ?? ''
   };
 }

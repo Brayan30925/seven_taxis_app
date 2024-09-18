@@ -5,6 +5,7 @@ class Driver {
   String? password;
   String? plate;
   String? token;
+  String? image;
 
   Driver({
     this.id,
@@ -12,7 +13,8 @@ class Driver {
     this.email,
     this.password,
     this.plate,
-    this.token
+    this.token,
+    this.image
   });
 
   factory Driver.fromJson(Map<String, dynamic> json) => Driver(
@@ -22,6 +24,7 @@ class Driver {
     password: json["password"] as String?,
     plate: json["plate"] as String?,
     token: json["token"] as String?,
+    image: json["image"] as String?,
   );
 
   Map<String, dynamic> toJson() => {
@@ -29,6 +32,8 @@ class Driver {
     "username": username ?? '',
     "email": email ?? '',
     "plate": plate ?? '',
-    "token": token ?? ''
+    "token": token ?? '',
+    "image": image ?? '',
+
   };
 }
